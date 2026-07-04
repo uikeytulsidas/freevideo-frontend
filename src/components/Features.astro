@@ -1,0 +1,26 @@
+---
+const features = [
+  ['⚡', 'Blazing fast downloads', 'Optimized backend processing returns your video as quickly as possible. No queues, no slow mirrors.'],
+  ['🔒', 'Private by design', 'We never store your videos or personal data. URLs are processed and discarded — nothing is kept permanently on our servers.'],
+  ['🎞', 'All formats & qualities', 'MP4 and MP3, starting from 240p up to 2K, 4K or 8K when the original video provides those streams.'],
+  ['🌐', '1,000+ sites supported', 'YouTube, Instagram, Facebook, Twitter/X, Dailymotion, Reddit and many more public video websites.'],
+  ['📱', 'Works on every device', 'Fully responsive — download from mobile, tablet or desktop right inside your browser. No app install.'],
+  ['✨', 'Free to use', 'MP4 high-quality downloads are free for public videos you own or have permission to download. No hidden fees, no credit card.'],
+];
+---
+<section class="section-pad" id="features">
+  <div class="container section-head">
+    <p class="eyebrow">Why choose us</p>
+    <h2>Built for speed, privacy and quality</h2>
+    <p>Every detail designed to make downloading public videos effortless — on any device.</p>
+  </div>
+  <div class="container features-grid">
+    {features.map(([icon, title, desc]) => (
+      <article class="feature-card card-hover">
+        <span>{icon}</span>
+        <h3>{title}</h3>
+        <p>{desc}</p>
+      </article>
+    ))}
+  </div>
+</section>

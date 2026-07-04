@@ -1,0 +1,23 @@
+---
+const steps = [
+  ['Copy the video link', 'Open a public video, Reel, Short or post, then copy the URL from the share button or browser address bar.'],
+  ['Paste and analyze', 'Paste the link, choose MP4 or MP3, select a quality, and click Analyze Video to load the title and thumbnail.'],
+  ['Download the file', 'After the preview appears, click Download Now. Keep the tab open until your browser starts saving the file.'],
+];
+---
+<section class="section-pad subtle" id="how-it-works">
+  <div class="container section-head">
+    <p class="eyebrow">How to download videos online</p>
+    <h2>Simple three-step download flow</h2>
+    <p>Built for mobile and desktop users who want a clean, clear and predictable download experience.</p>
+  </div>
+  <div class="container steps-grid three-steps">
+    {steps.map(([title, desc], index) => (
+      <article class="step-card card-hover">
+        <span class="step-number">{index + 1}</span>
+        <h3>{title}</h3>
+        <p>{desc}</p>
+      </article>
+    ))}
+  </div>
+</section>

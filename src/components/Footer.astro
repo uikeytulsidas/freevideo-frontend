@@ -1,0 +1,44 @@
+---
+import { platforms, site } from '../data/site.js';
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="brand footer-brand" href="/">
+        <span class="brand-mark">⬇</span>
+        <span>{site.name}</span>
+      </a>
+      <p>{site.description}</p>
+      <div class="footer-badges">
+        <span>No login needed</span>
+        <span>No tracking</span>
+      </div>
+    </div>
+
+    <div>
+      <h3>Platforms</h3>
+      {platforms.map((platform) => <a href={platform.slug}>{platform.name}</a>)}
+      <a href="/">All supported sites</a>
+    </div>
+
+    <div>
+      <h3>Company</h3>
+      <a href="/terms/">Terms of Service</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/contact/">Contact</a>
+      <a href="/">Home</a>
+      <a href="/#faq">FAQ</a>
+    </div>
+
+    <div>
+      <h3>Get started</h3>
+      <p>Paste any public video URL and download in seconds.</p>
+      <p class="footer-email">Email: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+      <a class="btn" href="/#downloader">Start downloading</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 FreeVideo.in. All rights reserved.</p>
+    <p>freevideo.in</p>
+  </div>
+</footer>

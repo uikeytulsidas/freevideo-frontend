@@ -1,0 +1,19 @@
+---
+import { commonFaq } from '../data/site.js';
+const { title = 'Frequently asked questions', subtitle = 'Everything you need to know about downloading videos safely.', items = commonFaq } = Astro.props;
+---
+<section class="section-pad subtle" id="faq">
+  <div class="container section-head">
+    <p class="eyebrow">Help center</p>
+    <h2>{title}</h2>
+    <p>{subtitle}</p>
+  </div>
+  <div class="container faq-list">
+    {items.map(([question, answer], index) => (
+      <details class="faq-item" open={index === 0}>
+        <summary>{question}</summary>
+        <p>{answer}</p>
+      </details>
+    ))}
+  </div>
+</section>

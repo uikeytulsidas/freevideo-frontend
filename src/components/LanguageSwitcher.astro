@@ -1,0 +1,68 @@
+---
+import { languages, translations, defaultLang } from '../i18n/ui.js';
+const { selectId = 'languageSelect' } = Astro.props;
+const currentLang = Astro.url.searchParams.get('lang') || defaultLang;
+---
+<div class="language-switcher" data-language-switcher>
+  <label class="sr-only" for={selectId}>Language</label>
+  <select id={selectId} class="language-select" aria-label="Change language">
+    {Object.entries(languages).map(([code, language]) => (
+      <option value={code} selected={code === currentLang}>{language.flag} {language.label}</option>
+    ))}
+  </select>
+</div>
+
+<script define:vars={{ translations, defaultLang }}>
+  function readStoredLang() {
+    const queryLang = new URLSearchParams(window.location.search).get('lang');
+    if (queryLang && translations[queryLang]) return queryLang;
+    const storedLang = localStorage.getItem('videodl_lang');
+    if (storedLang && translations[storedLang]) return storedLang;
+    return defaultLang;
+  }
+
+  function t(key, lang) {
+    return translations[lang]?.[key] || translations[defaultLang]?.[key] || key;
+  }
+
+  function applyLanguage(lang) {
+    if (!translations[lang]) lang = defaultLang;
+
+    document.documentElement.lang = lang;
+    localStorage.setItem('videodl_lang', lang);
+    window.FreeVideoLang = lang;
+    window.FreeVideoT = (key) => t(key, lang);
+
+    document.querySelectorAll('[data-i18n]').forEach((node) => {
+      const key = node.getAttribute('data-i18n');
+      node.textContent = t(key, lang);
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((node) => {
+      const key = node.getAttribute('data-i18n-placeholder');
+      node.setAttribute('placeholder', t(key, lang));
+    });
+
+    document.querySelectorAll('[data-i18n-aria-label]').forEach((node) => {
+      const key = node.getAttribute('data-i18n-aria-label');
+      node.setAttribute('aria-label', t(key, lang));
+    });
+
+    document.querySelectorAll('.language-select').forEach((select) => { select.value = lang; });
+
+    window.dispatchEvent(new CustomEvent('videodl:languagechange', { detail: { lang } }));
+  }
+
+  const selectedLang = readStoredLang();
+  applyLanguage(selectedLang);
+
+  document.querySelectorAll('.language-select').forEach((select) => {
+  select.addEventListener('change', (event) => {
+    const lang = event.target.value;
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url);
+    applyLanguage(lang);
+  });
+  });
+</script>

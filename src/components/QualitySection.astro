@@ -1,0 +1,32 @@
+---
+import { qualities } from '../data/site.js';
+---
+<section class="section-pad quality-section" id="quality">
+  <div class="container quality-wrap glass">
+    <div class="quality-copy">
+      <p class="eyebrow">Quality support</p>
+      <h2>MP4 quality from 240p up to 8K</h2>
+      <p>MP4 quality depends on the original video. Higher options such as 1080p, 2K, 4K or 8K appear only when the source video provides them.</p>
+      <div class="format-list">
+        <h3>Format & audio support</h3>
+        <ul>
+          <li>MP4 video — 240p, 360p, 480p, 720p, 1080p, 2K, 4K and 8K when available</li>
+          <li>MP3 audio — high-bitrate extraction</li>
+          <li>Each analyzed quality shows a file size in MB or GB when available</li>
+          <li>No DRM-protected or private content</li>
+        </ul>
+        <a class="btn btn-primary" href="#downloader">Start free download</a>
+      </div>
+    </div>
+    <div class="quality-grid">
+      {qualities.map((quality) => (
+        <article class="quality-card">
+          <strong>{quality.label}</strong>
+          <span>{quality.name}</span>
+          <p>{quality.desc}</p>
+          <small>{quality.status}</small>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site.js';
+---
+<BaseLayout title="Privacy Policy" description="Privacy Policy for our online video downloader, including URL processing, temporary files, logs, cookies and contact details.">
+  <section class="section-pad hero-lite legal-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Privacy</p>
+      <h1>Privacy Policy</h1>
+      <p>This Privacy Policy explains what information may be processed when you use {site.name}. We designed the free version to work without login and without storing user videos permanently.</p>
+      <p class="last-updated">Last updated: June 27, 2026</p>
+    </div>
+  </section>
+
+  <section class="section-pad article-section">
+    <div class="container content-card single legal-page-card">
+      <h2>1. Information You Provide</h2>
+      <p>When you use the downloader, you may provide a public video URL and select a format such as MP4 or MP3 and a quality such as 720p, 1080p, 1440p / 2K, 2160p / 4K or 4320p / 8K. This information is sent to the backend only so the service can analyze the video and prepare the requested file.</p>
+
+      <h2>2. Video Information Processed</h2>
+      <p>During analysis, the backend may retrieve public metadata such as video title, thumbnail, duration, available formats, selected quality and estimated file size. This information is shown to you before you click Download Now.</p>
+      <p>File size is an estimate when the source platform does not provide an exact value. The final downloaded size may be different after audio merging or conversion.</p>
+
+      <h2>3. Temporary Files and Downloads</h2>
+      <p>The backend may temporarily create media files to complete your selected download. These files are intended to expire automatically after a short time according to the backend file cleanup setting. This website is not intended to permanently store, publish or share user downloads.</p>
+
+      <h2>4. Technical Logs</h2>
+      <p>Like most websites and APIs, our server or hosting provider may process technical information such as IP address, request time, browser type, device information, error logs, requested URL path and security events. These logs help us maintain stability, prevent abuse, debug errors and protect the service.</p>
+
+      <h2>5. Cookies and Local Storage</h2>
+      <p>The default template does not require tracking cookies for the downloader to work. If you later add analytics, advertising, login, payment or other third-party scripts, update this Privacy Policy before launch.</p>
+
+      <h2>6. How We Use Information</h2>
+      <ul>
+        <li>To analyze a public video URL and show title, thumbnail, duration, quality and size details.</li>
+        <li>To prepare the format and quality you selected.</li>
+        <li>To improve security, rate limiting, abuse prevention and service reliability.</li>
+        <li>To respond to support emails, copyright complaints or technical reports.</li>
+      </ul>
+
+      <h2>7. What We Do Not Do</h2>
+      <ul>
+        <li>We do not require an account for the free downloader.</li>
+        <li>We do not ask for social media passwords.</li>
+        <li>We do not support private, login-only, paid, members-only or DRM-protected content.</li>
+        <li>We do not sell user-submitted video URLs.</li>
+        <li>We do not intend to permanently store downloaded videos.</li>
+      </ul>
+
+      <h2>8. Third-Party Platforms</h2>
+      <p>When you submit a link from a third-party platform, that platform’s own terms and privacy practices still apply. We do not control third-party websites, their content, their availability or their policies.</p>
+
+      <h2>9. Cloudflare and Hosting Security</h2>
+      <p>If you connect this website to Cloudflare or another hosting/security provider, that provider may process technical request data to deliver the website, cache assets, detect malicious traffic, apply firewall rules and protect the service. Review your provider settings and update this policy if you enable extra analytics or security features.</p>
+
+      <h2>10. Data Retention</h2>
+      <p>Temporary download files should be deleted automatically after the configured expiry time. Server logs may be retained for a limited period by your hosting provider or backend environment for security, debugging and operational purposes.</p>
+
+      <h2>11. Children’s Privacy</h2>
+      <p>This website is not directed to children. If local law requires parental consent for online services, users must access this website only with appropriate supervision and permission.</p>
+
+      <h2>12. Security</h2>
+      <p>We use reasonable technical measures such as rate limits, CORS rules, security headers and URL validation. However, no website or internet transmission is completely secure. Users should avoid submitting sensitive, private or login-only links.</p>
+
+      <h2>13. Your Choices</h2>
+      <p>You can avoid submitting a URL if you do not want it processed. You can contact us for support or privacy questions.</p>
+
+      <h2>14. Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Changes become effective when posted on this page. Check this page periodically for the latest version.</p>
+
+      <h2>15. Contact</h2>
+      <p>For privacy questions, support requests or copyright concerns, contact us by email. Replace this dummy email with your real email before production launch.</p>
+      <p>Email: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+    </div>
+  </section>
+</BaseLayout>

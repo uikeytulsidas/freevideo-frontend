@@ -1,0 +1,70 @@
+---
+import { platforms, site } from '../data/site.js';
+---
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="/" aria-label="FreeVideo.in home">
+      <span class="brand-mark">FV</span>
+      <span>{site.name}</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/youtube-video-downloader/" data-i18n="nav.youtube">YouTube Downloader</a>
+      <a href="/youtube-to-mp3/" data-i18n="nav.mp3">YouTube to MP3</a>
+      <a href="/youtube-video-downloader/" data-i18n="nav.mp4">YouTube to MP4</a>
+      <a href="/facebook-video-downloader/" data-i18n="nav.facebook">Facebook Video Downloader</a>
+      <div class="nav-dropdown">
+        <button type="button" class="dropdown-btn"><span data-i18n="nav.more">More</span> <span>⌄</span></button>
+        <div class="dropdown-panel">
+          {platforms.map((platform) => (
+            <a href={platform.slug} class="dropdown-item">
+              <span class={`mini-icon ${platform.color}`}>{platform.icon}</span>
+              <span>
+                <strong>{platform.name}</strong>
+                <small>{platform.tagline}</small>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-drawer" aria-hidden="true">
+  <div class="drawer-inner">
+    <p class="drawer-title" data-i18n="nav.menu">Menu</p>
+    <a href="/youtube-video-downloader/" data-i18n="nav.youtube">YouTube Downloader</a>
+    <a href="/youtube-to-mp3/" data-i18n="nav.mp3">YouTube to MP3</a>
+    <a href="/youtube-video-downloader/" data-i18n="nav.mp4">YouTube to MP4</a>
+    <a href="/facebook-video-downloader/" data-i18n="nav.facebook">Facebook Video Downloader</a>
+    <p class="drawer-title" data-i18n="nav.platforms">More platforms</p>
+    {platforms.map((platform) => <a href={platform.slug}>{platform.shortName}</a>)}
+  </div>
+</div>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const drawer = document.querySelector('.mobile-drawer');
+  const drawerLinks = document.querySelectorAll('.mobile-drawer a');
+
+  toggle?.addEventListener('click', () => {
+    const open = document.body.classList.toggle('drawer-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    drawer?.setAttribute('aria-hidden', String(!open));
+  });
+
+  drawerLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      document.body.classList.remove('drawer-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      drawer?.setAttribute('aria-hidden', 'true');
+    });
+  });
+</script>

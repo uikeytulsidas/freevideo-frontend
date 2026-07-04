@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import PlatformArticle from '../components/PlatformArticle.astro';
+import PlatformCards from '../components/PlatformCards.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Features from '../components/Features.astro';
+import QualitySection from '../components/QualitySection.astro';
+import FAQ from '../components/FAQ.astro';
+import LegalNotice from '../components/LegalNotice.astro';
+import { platforms } from '../data/site.js';
+const platform = platforms.find((item) => item.slug === '/youtube-video-downloader/');
+---
+<BaseLayout title={platform.seoTitle} description={platform.seoDescription}>
+  <Hero eyebrow={platform.tagline} title={platform.heroTitle} description={platform.heroDescription} badges={[platform.name, 'MP4 & MP3', 'Up to 8K when available', 'No login']} />
+  <Stats />
+  <PlatformArticle platform={platform} />
+  <PlatformCards exclude={platform.slug} />
+  <HowItWorks />
+  <Features />
+  <QualitySection />
+  <FAQ title={`${platform.heroTitle} FAQ`} subtitle={`Common questions about downloading ${platform.shortName} videos.`} items={platform.faq} />
+  <LegalNotice />
+</BaseLayout>

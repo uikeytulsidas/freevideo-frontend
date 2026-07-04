@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site.js';
+---
+<BaseLayout title="Terms and Conditions" description="Terms and Conditions for using our online video downloader responsibly and lawfully.">
+  <section class="section-pad hero-lite legal-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Legal</p>
+      <h1>Terms and Conditions</h1>
+      <p>These Terms explain how users may access and use {site.name}. Use this service only for public videos you own, have permission to use, or are legally allowed to save.</p>
+      <p class="last-updated">Last updated: June 27, 2026</p>
+    </div>
+  </section>
+
+  <section class="section-pad article-section">
+    <div class="container content-card single legal-page-card">
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using this website, you agree to these Terms and Conditions. If you do not agree with any part of these Terms, you should stop using the website immediately.</p>
+
+      <h2>2. Service Description</h2>
+      <p>{site.name} is an online technical tool that helps users analyze public video links and prepare available MP4 or MP3 downloads. The service may support public links from platforms such as YouTube, Instagram, Facebook, Twitter/X, Dailymotion, Reddit and other supported websites.</p>
+      <p>We do not create, upload, publish, own, host, edit or control third-party videos, audio, images or media. Any media information processed by this website comes from URLs submitted by users or from third-party platforms.</p>
+
+      <h2>3. Lawful and Responsible Use</h2>
+      <p>You are fully responsible for every URL you submit and every file you download. You agree that you will use this website only for lawful, personal and reasonable purposes.</p>
+      <ul>
+        <li>Download only content that you own, created yourself, have permission to use, or are legally allowed to save.</li>
+        <li>Respect copyright, creator rights, privacy rights, publicity rights and platform rules.</li>
+        <li>Do not use this website to copy, distribute, sell, re-upload or commercially exploit unauthorized copyrighted content.</li>
+        <li>Do not submit private, stolen, restricted, harmful, illegal or rights-infringing content.</li>
+      </ul>
+
+      <h2>4. Unsupported Content</h2>
+      <p>This website is not designed to bypass restrictions. The following content is not supported:</p>
+      <ul>
+        <li>Private videos, private accounts, private groups or login-only content.</li>
+        <li>Members-only, paid, rented, purchased, subscription or restricted videos.</li>
+        <li>DRM-protected media or content protected by technical access controls.</li>
+        <li>Deleted, expired, region-restricted, age-restricted or unavailable videos.</li>
+        <li>Playlists, channels or profile pages where a single public video URL is required.</li>
+      </ul>
+
+      <h2>5. Prohibited Activities</h2>
+      <p>When using this website, you must not:</p>
+      <ul>
+        <li>Violate any law, regulation, copyright rule or third-party platform policy.</li>
+        <li>Use bots, scrapers, automated scripts or bulk tools to overload the service.</li>
+        <li>Attempt to bypass rate limits, security rules, access controls or technical protections.</li>
+        <li>Attack, reverse engineer, modify, copy, resell or mirror the service without permission.</li>
+        <li>Transmit malware, spam, phishing links, harmful code or misleading content.</li>
+        <li>Use the service in a way that may create legal risk for us, other users or third parties.</li>
+      </ul>
+
+      <h2>6. Third-Party Platforms and No Affiliation</h2>
+      <p>This website is not affiliated with, sponsored by, endorsed by, authorized by or officially connected to YouTube, Google, Meta, Facebook, Instagram, Twitter/X, Dailymotion, Reddit or any other third-party platform.</p>
+      <p>All third-party names, logos, trademarks, videos and content belong to their respective owners. References to third-party platforms are used only to describe compatibility and supported link types.</p>
+
+      <h2>7. User Submissions and Temporary Processing</h2>
+      <p>When you submit a URL, you grant us the limited permission needed to process that URL, analyze available public media information and prepare the selected file. We do not claim ownership of the content you submit.</p>
+      <p>Temporary files may be created during technical processing. They should be automatically deleted after a short time according to the backend configuration. The website is not a permanent video hosting or storage service.</p>
+
+      <h2>8. File Size and Quality Information</h2>
+      <p>Video size, audio size, duration, title, thumbnail and available quality information are provided for convenience only. The final file size may change depending on source availability, selected format, selected quality, audio merging, conversion and backend processing.</p>
+
+      <h2>9. Copyright Complaints</h2>
+      <p>We respect intellectual property rights. If you are a copyright owner or an authorized representative and believe a page, link or result on this website creates a copyright concern, contact us with clear details.</p>
+      <p>Please include your name, contact email, the copyrighted work, the URL or information needed to identify the issue, and a statement that your complaint is accurate and made in good faith.</p>
+      <p>Email for copyright concerns: <a href={`mailto:${site.copyrightEmail}`}>{site.copyrightEmail}</a></p>
+
+      <h2>10. Privacy</h2>
+      <p>Your use of this website is also governed by our Privacy Policy. The frontend does not require login for the current version. Use the service only for lawful downloading of public videos you own or have permission to download.</p>
+
+      <h2>11. Service Availability</h2>
+      <p>We try to keep the website fast, stable and secure, but we do not guarantee uninterrupted access, successful parsing, successful conversion, download availability or error-free operation. Third-party platform changes may break analysis or downloads at any time.</p>
+
+      <h2>12. Disclaimer</h2>
+      <p>The website and its services are provided “as is” and “as available.” You use the service at your own discretion and risk. You are responsible for your device security, backups, download legality and how you use any saved files.</p>
+
+      <h2>13. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, we are not liable for indirect, incidental, special, consequential or punitive damages, loss of data, loss of profit, device issues, third-party claims, failed downloads, unavailable videos or legal disputes arising from your use of the website.</p>
+
+      <h2>14. Indemnification</h2>
+      <p>You agree to hold this website, its owners, operators and partners harmless from claims, losses, liabilities, damages and expenses that arise from your misuse of the service, violation of these Terms, violation of law or infringement of third-party rights.</p>
+
+      <h2>15. Changes to These Terms</h2>
+      <p>We may update these Terms from time to time. Updated Terms become effective when posted on this page. Continued use of the website after changes means you accept the updated Terms.</p>
+
+      <h2>16. Contact</h2>
+      <p>For support, legal notices or general questions, contact us by email. Replace this dummy email with your real business email before production launch.</p>
+      <p>Email: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site.js';
+---
+<BaseLayout title="Contact Us" description="Contact support for our online video downloader. Email-only contact, no social media links.">
+  <section class="section-pad hero-lite legal-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Contact</p>
+      <h1>Contact Us</h1>
+      <p>Need help with a download issue, copyright concern, or website suggestion? Contact us by email. No social media contact links are used on this page.</p>
+    </div>
+  </section>
+
+  <section class="section-pad article-section">
+    <div class="container content-card single legal-page-card contact-page-card">
+      <h2>Email Support</h2>
+      <p>Use this dummy email while developing the project. Replace it with your real support email before production launch.</p>
+      <p class="contact-email"><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+
+      <h2>When Reporting a Problem</h2>
+      <p>Please include these details so the issue can be checked quickly:</p>
+      <ul>
+        <li>The page or tool you were using, such as YouTube Downloader, Instagram Downloader or Reddit Downloader.</li>
+        <li>The public video URL where the issue happened.</li>
+        <li>The selected format and quality, such as MP4 720p or MP3.</li>
+        <li>Your device type and browser name, such as Android Chrome or Windows Edge.</li>
+        <li>The exact error message or a screenshot if possible.</li>
+      </ul>
+
+      <h2>Copyright or Content Concerns</h2>
+      <p>If you are a rights holder or authorized representative, email us with the URL, your contact details and a clear description of the concern.</p>
+      <p>Email: <a href={`mailto:${site.copyrightEmail}`}>{site.copyrightEmail}</a></p>
+
+      <h2>Response Time</h2>
+      <p>After you add your real email, aim to reply to complete support requests within 48 hours when possible.</p>
+    </div>
+  </section>
+</BaseLayout>

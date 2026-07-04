@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import PlatformCards from '../components/PlatformCards.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Features from '../components/Features.astro';
+import QualitySection from '../components/QualitySection.astro';
+import FAQ from '../components/FAQ.astro';
+import LegalNotice from '../components/LegalNotice.astro';
+import { commonFaq } from '../data/site.js';
+---
+<BaseLayout
+  title="FreeVideo.in — Free Online Video Downloader"
+  description="FreeVideo.in lets you download videos from YouTube, Instagram, Facebook, Twitter/X, Dailymotion, Reddit and supported public sites as MP4 or MP3 up to 8K when available from the source."
+>
+  <Hero />
+  <Stats />
+  <PlatformCards />
+  <HowItWorks />
+  <Features />
+  <QualitySection />
+  <FAQ items={commonFaq} />
+  <LegalNotice />
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+const { platform } = Astro.props;
+---
+<section class="section-pad article-section">
+  <div class="container article-layout">
+    <aside class="toc glass">
+      <p>On this page</p>
+      <a href="#about">About the {platform.heroTitle}</a>
+      <a href="#use">How to use the {platform.heroTitle}</a>
+      <a href="#formats">Quality and formats</a>
+      <a href="#free">Free plan</a>
+      <a href="#legal">Legal use</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#unsupported">Unsupported content</a>
+    </aside>
+    <article class="content-card">
+      <h2 id="about">About the {platform.heroTitle}</h2>
+      <p>{platform.about}</p>
+
+      <h2 id="use">How to use the {platform.heroTitle}</h2>
+      <ol>
+        <li>Copy the video URL from {platform.shortName} using the share button or address bar.</li>
+        <li>Paste the link into the downloader field above and pick MP4 video or MP3 audio.</li>
+        <li>Select your preferred quality — from 240p up to 2K, 4K or 8K when the source video provides it.</li>
+        <li>Click Analyze Video to preview the title, thumbnail, duration and size for each available quality.</li>
+        <li>Press Download Now. The file is prepared by your server and saved directly to your device.</li>
+      </ol>
+
+      <h2 id="formats">What quality and formats does the {platform.heroTitle} support?</h2>
+      <p>The downloader supports MP4 video in 240p, 360p, 480p, 720p, 1080p, 1440p / 2K, 2160p / 4K and 4320p / 8K, plus MP3 audio extraction. The exact qualities available depend on what the source video provides — if the uploader only posted 720p, the site cannot upscale it.</p>
+
+      <h2 id="free">Is the {platform.heroTitle} free to use?</h2>
+      <p>Yes. Downloads are free for public videos you own or have permission to download. Higher MP4 qualities such as 4K and 8K appear only when the source video provides them.</p>
+
+      <h2 id="legal">Is it legal to download {platform.shortName} videos?</h2>
+      <p>You may only download videos you own or have explicit permission to download. Downloading copyrighted content without authorization may violate platform terms and copyright law. Respect creators and use this service responsibly.</p>
+
+      <h2 id="privacy">Does the {platform.heroTitle} store my videos or personal data?</h2>
+      <p>No. The frontend does not store videos. Your backend should process the URL on demand to fetch public video information and then discard it. Do not keep copies of downloads, browsing history or personal information unless you clearly disclose it and have a lawful reason.</p>
+
+      <h2 id="unsupported">What {platform.shortName} content is not supported?</h2>
+      <p>DRM-protected videos, private videos, members-only content, deleted content and login-only pages are not supported. If a video requires an account, payment or special permission to view, this downloader should not access or bypass those restrictions.</p>
+    </article>
+  </div>
+</section>
