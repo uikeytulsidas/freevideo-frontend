@@ -337,7 +337,7 @@ const audioQualities = [
 
   function getFriendlyNetworkError(error, fallbackMessage) {
     if (error?.name === 'TypeError' || String(error?.message || '').includes('Failed to fetch')) {
-      return 'Backend is not reachable. Start backend on http://localhost:5000, then try again.';
+      return 'Backend is not reachable. Please check your connection and try again.';
     }
     return error?.message || fallbackMessage;
   }
