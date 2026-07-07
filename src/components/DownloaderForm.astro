@@ -1,5 +1,15 @@
 ---
-const apiBaseUrl = import.meta.env.PUBLIC_API_BASE_URL || 'http://localhost:5000';
+const apiCandidates = JSON.stringify(
+  [
+    import.meta.env.PUBLIC_API_URL,
+    import.meta.env.PUBLIC_RENDER_API_URL,
+    import.meta.env.PUBLIC_API_BASE_URL,
+    'http://localhost:5000',
+  ]
+    .filter(Boolean)
+    .map((url) => String(url).replace(/\/$/, ''))
+);
+
 const { defaultFormat = 'mp4' } = Astro.props;
 const isMp3Default = defaultFormat === 'mp3';
 
@@ -21,7 +31,12 @@ const audioQualities = [
   { value: '320', label: '320 kbps', hint: 'Best MP3' },
 ];
 ---
-<section class="downloader-card vd-style-downloader" id="downloader" data-api-base={apiBaseUrl}>
+
+<section
+  class="downloader-card vd-style-downloader"
+  id="downloader"
+  data-api-candidates={apiCandidates}
+>
   <form class="vd-search-card" id="downloadForm">
     <div class="url-line">
       <div class="input-shell input-shell-vd">
@@ -35,6 +50,7 @@ const audioQualities = [
           required
         />
       </div>
+
       <button class="btn btn-primary btn-analyze-main" type="submit" id="analyzeBtn">
         <span class="btn-icon">↓</span>
         <span class="btn-label">Analyze Video</span>
@@ -52,6 +68,7 @@ const audioQualities = [
         <div class="segmented segmented-vd">
           <input type="radio" name="format" id="formatMp4" value="mp4" checked={!isMp3Default} />
           <label for="formatMp4">MP4 Video</label>
+
           <input type="radio" name="format" id="formatMp3" value="mp3" checked={isMp3Default} />
           <label for="formatMp3">MP3 Audio</label>
         </div>
@@ -60,7 +77,11 @@ const audioQualities = [
       <div class="summary-box selected-summary-box">
         <label>Selected</label>
         <strong id="selectedSummary">{isMp3Default ? 'MP3 • 320 kbps' : 'MP4 • 720p'}</strong>
-        <span id="selectedHelp">{isMp3Default ? 'Choose audio bitrate first, then analyze the video.' : 'Choose video resolution first, then analyze the video.'}</span>
+        <span id="selectedHelp">
+          {isMp3Default
+            ? 'Choose audio bitrate first, then analyze the video.'
+            : 'Choose video resolution first, then analyze the video.'}
+        </span>
       </div>
     </div>
 
@@ -68,9 +89,14 @@ const audioQualities = [
       <div class="quality-topline-vd">
         <div>
           <label>Choose MP4 resolution</label>
-          <p>MP4 quality depends on the original video. 1080p, 2K, 4K or 8K appear only when the source provides them.</p>
+          <p>
+            MP4 quality depends on the original video. Higher options such as
+            1080p, 2K, 4K or 8K appear only when the source video provides them.
+          </p>
         </div>
-        <div class="selected-chip" id="selectedChip">Selected: {isMp3Default ? 'MP3 • 320 kbps' : 'MP4 • 720p'}</div>
+        <div class="selected-chip" id="selectedChip">
+          Selected: {isMp3Default ? 'MP3 • 320 kbps' : 'MP4 • 720p'}
+        </div>
       </div>
 
       <div class="quality-actions choose-only" id="qualityActions" aria-label="Choose video resolution">
@@ -94,9 +120,14 @@ const audioQualities = [
       <div class="quality-topline-vd">
         <div>
           <label>Choose MP3 audio quality</label>
-          <p>MP3 is audio-only, so video resolution is not required. Choose bitrate such as 128 kbps, 192 kbps, 256 kbps or 320 kbps.</p>
+          <p>
+            MP3 is audio-only, so video resolution is not required.
+            Choose bitrate such as 128 kbps, 192 kbps, 256 kbps or 320 kbps.
+          </p>
         </div>
-        <div class="selected-chip" id="audioSelectedChip">Selected: {isMp3Default ? 'MP3 • 320 kbps' : 'MP4 • 720p'}</div>
+        <div class="selected-chip" id="audioSelectedChip">
+          Selected: {isMp3Default ? 'MP3 • 320 kbps' : 'MP4 • 720p'}
+        </div>
       </div>
 
       <div class="quality-actions choose-only audio-actions-vd" id="audioQualityActions" aria-label="Choose MP3 bitrate">
@@ -116,7 +147,9 @@ const audioQualities = [
       </div>
     </div>
 
-    <p class="privacy-line privacy-line-vd">Private, login-only, paid, members-only and DRM-protected videos are not supported.</p>
+    <p class="privacy-line privacy-line-vd">
+      Private, login-only, paid, members-only and DRM-protected videos are not supported.
+    </p>
   </form>
 
   <div class="video-preview-card" id="videoPreview" hidden>
@@ -128,14 +161,17 @@ const audioQualities = [
         <small>Video detected</small>
       </div>
     </div>
+
     <div class="preview-body">
       <div class="preview-kicker">
         <span id="previewPlatform">Video detected</span>
         <span id="previewDuration">Duration unavailable</span>
         <span id="previewSize">Size unavailable</span>
       </div>
+
       <h3 id="previewTitle">Video title will appear here</h3>
       <p id="previewMeta">Selected option: {isMp3Default ? 'MP3 • 320 kbps' : 'MP4 • 720p'}</p>
+
       <div class="preview-actions">
         <button class="btn btn-primary" type="button" id="downloadNowBtn">
           <span>⬇</span>
@@ -150,13 +186,18 @@ const audioQualities = [
     <div class="loader-modern" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>
+
     <div class="state-content">
       <p class="eyebrow" id="statePlatform">Preparing download</p>
       <h3 id="stateTitle">Please keep this tab open.</h3>
-      <p id="stateMessage">Preparing your selected file. The browser download will start after this step.</p>
+      <p id="stateMessage">
+        Preparing your selected file. The browser download will start after this step.
+      </p>
+
       <div class="progress-track progress-track-vd">
         <span id="progressFill"></span>
       </div>
+
       <ol class="prepare-steps prepare-steps-vd" id="prepareSteps">
         <li class="active">Checking video</li>
         <li>Preparing file</li>
@@ -168,20 +209,70 @@ const audioQualities = [
 
 <script>
   const card = document.querySelector('#downloader');
-  const apiBaseUrl = card?.getAttribute('data-api-base') || 'http://localhost:5000';
+
+  let apiCandidates = [];
+  try {
+    apiCandidates = JSON.parse(card?.getAttribute('data-api-candidates') || '[]');
+  } catch {
+    apiCandidates = [];
+  }
+
+  apiCandidates = apiCandidates
+    .filter(Boolean)
+    .map((url) => String(url).replace(/\/$/, ''));
+
+  if (!apiCandidates.length) {
+    apiCandidates = ['http://localhost:5000'];
+  }
+
+  let activeApiBaseUrl = apiCandidates[0];
+
+  function joinApiUrl(baseUrl, path) {
+    return `${String(baseUrl).replace(/\/$/, '')}${path.startsWith('/') ? path : `/${path}`}`;
+  }
+
+  function isRetryableStatus(status) {
+    return [502, 503, 504, 520, 521, 522, 523, 524].includes(status);
+  }
+
+  async function apiFetch(path, options = {}) {
+    let lastError;
+
+    for (const baseUrl of apiCandidates) {
+      try {
+        const response = await fetch(joinApiUrl(baseUrl, path), options);
+
+        if (response.ok || !isRetryableStatus(response.status)) {
+          activeApiBaseUrl = baseUrl;
+          return response;
+        }
+
+        lastError = new Error(`API ${baseUrl} returned ${response.status}`);
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    throw lastError || new Error('Backend is not reachable.');
+  }
+
   const form = document.querySelector('#downloadForm');
   const urlInput = document.querySelector('#videoUrl');
   const detectLine = document.querySelector('#detectLine');
   const statusDot = document.querySelector('#statusDot');
+
   const qualityButtons = Array.from(document.querySelectorAll('.quality-select-card'));
   const audioQualityButtons = Array.from(document.querySelectorAll('.audio-quality-select-card'));
   const formatRadios = Array.from(document.querySelectorAll('input[name="format"]'));
+
   const videoQualityPanel = document.querySelector('#videoQualityPanel');
   const audioQualityPanel = document.querySelector('#audioQualityPanel');
+
   const selectedSummary = document.querySelector('#selectedSummary');
   const selectedChip = document.querySelector('#selectedChip');
   const audioSelectedChip = document.querySelector('#audioSelectedChip');
   const selectedHelp = document.querySelector('#selectedHelp');
+
   const analyzeBtn = document.querySelector('#analyzeBtn');
   const videoPreview = document.querySelector('#videoPreview');
   const previewThumb = document.querySelector('#previewThumb');
@@ -191,8 +282,10 @@ const audioQualities = [
   const previewSize = document.querySelector('#previewSize');
   const previewTitle = document.querySelector('#previewTitle');
   const previewMeta = document.querySelector('#previewMeta');
+
   const downloadNowBtn = document.querySelector('#downloadNowBtn');
   const changeQualityBtn = document.querySelector('#changeQualityBtn');
+
   const downloadState = document.querySelector('#downloadState');
   const statePlatform = document.querySelector('#statePlatform');
   const stateTitle = document.querySelector('#stateTitle');
@@ -206,22 +299,27 @@ const audioQualities = [
   let progressTimer;
 
   function showThumbnailFallback() {
-    previewThumb.removeAttribute('src');
-    previewThumb.hidden = true;
-    thumbFallback.hidden = false;
-    previewThumb.parentElement?.classList.add('no-thumb');
+    previewThumb?.removeAttribute('src');
+    if (previewThumb) previewThumb.hidden = true;
+    if (thumbFallback) thumbFallback.hidden = false;
+    previewThumb?.parentElement?.classList.add('no-thumb');
   }
 
   function showThumbnail(src) {
     const safeSrc = String(src || '').trim();
+
     if (!/^https?:\/\//i.test(safeSrc) && !safeSrc.startsWith('data:image/')) {
       showThumbnailFallback();
       return;
     }
-    previewThumb.hidden = false;
-    thumbFallback.hidden = true;
-    previewThumb.parentElement?.classList.remove('no-thumb');
-    previewThumb.src = safeSrc;
+
+    if (previewThumb) {
+      previewThumb.hidden = false;
+      previewThumb.src = safeSrc;
+    }
+
+    if (thumbFallback) thumbFallback.hidden = true;
+    previewThumb?.parentElement?.classList.remove('no-thumb');
   }
 
   function getFormat() {
@@ -240,35 +338,11 @@ const audioQualities = [
   }
 
   function currentSelectionText() {
-    if (getFormat() === 'mp3') return `MP3 • ${audioQualityLabel(selectedAudioQuality)}`;
+    if (getFormat() === 'mp3') {
+      return `MP3 • ${audioQualityLabel(selectedAudioQuality)}`;
+    }
+
     return `MP4 • ${qualityLabel(selectedQuality)}`;
-  }
-
-  function invalidateAnalysis(message) {
-    if (!analyzedVideo) return;
-    analyzedVideo = null;
-    videoPreview.hidden = true;
-    downloadState.hidden = true;
-    resetQualitySizes();
-    setStatus(message || 'Selection changed. Analyze the video again to refresh details and size.', 'idle');
-  }
-
-  function updatePanelVisibility() {
-    const isMp3 = getFormat() === 'mp3';
-    videoQualityPanel.hidden = isMp3;
-    audioQualityPanel.hidden = !isMp3;
-  }
-
-  function updateSummary() {
-    updatePanelVisibility();
-    const text = currentSelectionText();
-    selectedSummary.textContent = text;
-    selectedChip.textContent = `Selected: ${text}`;
-    audioSelectedChip.textContent = `Selected: ${text}`;
-    previewMeta.textContent = `Selected option: ${text}`;
-    selectedHelp.textContent = getFormat() === 'mp3'
-      ? (analyzedVideo ? 'MP3 bitrate selected. Click Download Now to continue.' : 'Choose MP3 bitrate first, then analyze the video.')
-      : (analyzedVideo ? 'MP4 resolution selected. Click Download Now to continue.' : 'Choose video resolution first, then analyze the video.');
   }
 
   function resetQualitySizes() {
@@ -276,10 +350,54 @@ const audioQualities = [
       item.textContent = 'Analyze to show size';
       item.classList.remove('available', 'unavailable', 'estimated');
     });
+
     document.querySelectorAll('[data-audio-size-for]').forEach((item) => {
       item.textContent = 'Analyze to show size';
       item.classList.remove('available', 'unavailable', 'estimated');
     });
+  }
+
+  function invalidateAnalysis(message) {
+    if (!analyzedVideo) return;
+
+    analyzedVideo = null;
+    if (videoPreview) videoPreview.hidden = true;
+    if (downloadState) downloadState.hidden = true;
+
+    resetQualitySizes();
+    setStatus(
+      message || 'Selection changed. Analyze the video again to refresh details and size.',
+      'idle'
+    );
+  }
+
+  function updatePanelVisibility() {
+    const isMp3 = getFormat() === 'mp3';
+
+    if (videoQualityPanel) videoQualityPanel.hidden = isMp3;
+    if (audioQualityPanel) audioQualityPanel.hidden = !isMp3;
+  }
+
+  function updateSummary() {
+    updatePanelVisibility();
+
+    const text = currentSelectionText();
+
+    if (selectedSummary) selectedSummary.textContent = text;
+    if (selectedChip) selectedChip.textContent = `Selected: ${text}`;
+    if (audioSelectedChip) audioSelectedChip.textContent = `Selected: ${text}`;
+    if (previewMeta) previewMeta.textContent = `Selected option: ${text}`;
+
+    if (selectedHelp) {
+      selectedHelp.textContent =
+        getFormat() === 'mp3'
+          ? analyzedVideo
+            ? 'MP3 bitrate selected. Click Download Now to continue.'
+            : 'Choose MP3 bitrate first, then analyze the video.'
+          : analyzedVideo
+            ? 'MP4 resolution selected. Click Download Now to continue.'
+            : 'Choose video resolution first, then analyze the video.';
+    }
   }
 
   function updateSizeBadge(item, option) {
@@ -288,6 +406,7 @@ const audioQualities = [
     if (option?.available && option.label && !/unavailable/i.test(option.label)) {
       item.textContent = `${option.label}${option.estimated ? ' est.' : ''}`;
       item.classList.add('available');
+
       if (option.estimated) item.classList.add('estimated');
     } else {
       item.textContent = option?.message || 'Size unavailable';
@@ -302,24 +421,32 @@ const audioQualities = [
     document.querySelectorAll('[data-size-for]').forEach((item) => {
       const quality = item.getAttribute('data-size-for');
       const option = map.get(String(quality));
+
       if (!option) {
         updateSizeBadge(item, { available: false, message: 'Not in source' });
         return;
       }
-      updateSizeBadge(item, option.available ? option : { ...option, message: 'Not in source' });
+
+      updateSizeBadge(
+        item,
+        option.available ? option : { ...option, message: option.message || 'Not in source' }
+      );
     });
 
     const audioOptions = Array.isArray(info?.audioSizes) ? info.audioSizes : [];
     const audioMap = new Map(audioOptions.map((option) => [String(option.bitrate), option]));
+
     document.querySelectorAll('[data-audio-size-for]').forEach((item) => {
       const bitrate = item.getAttribute('data-audio-size-for');
       const option = audioMap.get(String(bitrate));
+
       updateSizeBadge(item, option || { available: false, message: 'Size unavailable' });
     });
   }
 
   function detectPlatform(url) {
     const value = String(url || '').toLowerCase();
+
     if (value.includes('youtube.com') || value.includes('youtu.be')) return 'YouTube';
     if (value.includes('instagram.com')) return 'Instagram';
     if (value.includes('facebook.com') || value.includes('fb.watch')) return 'Facebook';
@@ -327,18 +454,22 @@ const audioQualities = [
     if (value.includes('dailymotion.com') || value.includes('dai.ly')) return 'Dailymotion';
     if (value.includes('reddit.com') || value.includes('redd.it')) return 'Reddit';
     if (value.trim().length > 8) return 'Supported public website';
+
     return 'Paste a public video URL to continue.';
   }
 
   function setStatus(message, type = 'idle') {
-    detectLine.textContent = message;
+    if (detectLine) detectLine.textContent = message;
     statusDot?.setAttribute('data-status', type);
   }
 
   function getFriendlyNetworkError(error, fallbackMessage) {
-    if (error?.name === 'TypeError' || String(error?.message || '').includes('Failed to fetch')) {
+    const message = String(error?.message || '');
+
+    if (error?.name === 'TypeError' || message.includes('Failed to fetch')) {
       return 'Backend is not reachable. Please check your connection and try again.';
     }
+
     return error?.message || fallbackMessage;
   }
 
@@ -352,14 +483,17 @@ const audioQualities = [
   }
 
   function setControlsDisabled(disabled) {
-    analyzeBtn.disabled = disabled;
-    downloadNowBtn.disabled = disabled;
+    if (analyzeBtn) analyzeBtn.disabled = disabled;
+    if (downloadNowBtn) downloadNowBtn.disabled = disabled;
+
     qualityButtons.forEach((button) => {
       button.disabled = disabled;
     });
+
     audioQualityButtons.forEach((button) => {
       button.disabled = disabled;
     });
+
     formatRadios.forEach((radio) => {
       radio.disabled = disabled;
     });
@@ -380,19 +514,37 @@ const audioQualities = [
   }
 
   function setAnalyzing(isAnalyzing) {
+    if (!analyzeBtn) return;
+
     analyzeBtn.disabled = isAnalyzing;
-    analyzeBtn.querySelector('.btn-icon').textContent = isAnalyzing ? '⏳' : '↓';
-    analyzeBtn.querySelector('.btn-label').textContent = isAnalyzing ? 'Analyzing...' : 'Analyze Video';
+
+    const icon = analyzeBtn.querySelector('.btn-icon');
+    const label = analyzeBtn.querySelector('.btn-label');
+
+    if (icon) icon.textContent = isAnalyzing ? '⏳' : '↓';
+    if (label) label.textContent = isAnalyzing ? 'Analyzing...' : 'Analyze Video';
   }
 
   function showPreview(info) {
     analyzedVideo = info;
-    previewPlatform.textContent = info.platform || detectPlatform(urlInput.value);
-    previewDuration.textContent = info.duration || 'Duration unavailable';
-    previewSize.textContent = info.fileSize ? `Size: ${info.fileSize}${info.fileSizeEstimated ? ' (est.)' : ''}` : 'Size unavailable';
-    previewTitle.textContent = info.title || 'Video title will appear here';
-    const analyzedOption = info.selectedQualityTag ? `${getFormat().toUpperCase()} • ${info.selectedQualityTag}` : currentSelectionText();
-    previewMeta.textContent = `Selected option: ${analyzedOption}`;
+
+    if (previewPlatform) previewPlatform.textContent = info.platform || detectPlatform(urlInput?.value);
+    if (previewDuration) previewDuration.textContent = info.duration || 'Duration unavailable';
+
+    if (previewSize) {
+      previewSize.textContent = info.fileSize
+        ? `Size: ${info.fileSize}${info.fileSizeEstimated ? ' (est.)' : ''}`
+        : 'Size unavailable';
+    }
+
+    if (previewTitle) previewTitle.textContent = info.title || 'Video title will appear here';
+
+    const analyzedOption = info.selectedQualityTag
+      ? `${getFormat().toUpperCase()} • ${info.selectedQualityTag}`
+      : currentSelectionText();
+
+    if (previewMeta) previewMeta.textContent = `Selected option: ${analyzedOption}`;
+
     updateQualitySizes(info);
 
     if (info.thumbnail) {
@@ -401,34 +553,45 @@ const audioQualities = [
       showThumbnailFallback();
     }
 
-    videoPreview.hidden = false;
-    downloadState.hidden = true;
-    const successMessage = getFormat() === 'mp3'
-      ? 'Audio analyzed successfully. Review MP3 bitrate sizes, then click Download Now.'
-      : 'Video analyzed successfully. Review available size for each resolution, then click Download Now.';
+    if (videoPreview) videoPreview.hidden = false;
+    if (downloadState) downloadState.hidden = true;
+
+    const successMessage =
+      getFormat() === 'mp3'
+        ? 'Audio analyzed successfully. Review MP3 bitrate sizes, then click Download Now.'
+        : 'Video analyzed successfully. Review available size for each resolution, then click Download Now.';
+
     setStatus(successMessage, 'success');
-    videoPreview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    videoPreview?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
     updateSummary();
   }
 
   async function analyzeVideo() {
-    const url = urlInput.value.trim();
+    const url = urlInput?.value.trim();
 
     if (!url) {
-      urlInput.focus();
+      urlInput?.focus();
       setStatus('Please paste a video URL first.', 'error');
       return;
     }
 
-    setStatus(`Analyzing ${detectPlatform(url)} ${getFormat() === 'mp3' ? 'audio' : 'video'}...`, 'loading');
+    setStatus(
+      `Analyzing ${detectPlatform(url)} ${getFormat() === 'mp3' ? 'audio' : 'video'}...`,
+      'loading'
+    );
+
     setAnalyzing(true);
-    videoPreview.hidden = true;
-    downloadState.hidden = true;
+
+    if (videoPreview) videoPreview.hidden = true;
+    if (downloadState) downloadState.hidden = true;
+
     analyzedVideo = null;
     resetQualitySizes();
 
     try {
-      const response = await fetch(`${apiBaseUrl}/api/info`, {
+      const response = await apiFetch('/api/info', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -447,7 +610,10 @@ const audioQualities = [
       const data = await response.json();
       showPreview(data);
     } catch (error) {
-      setStatus(getFriendlyNetworkError(error, 'Video analysis failed. Check backend terminal.'), 'error');
+      setStatus(
+        getFriendlyNetworkError(error, 'Video analysis failed. Check backend terminal.'),
+        'error'
+      );
     } finally {
       setAnalyzing(false);
     }
@@ -456,54 +622,79 @@ const audioQualities = [
   function startPreparingState(payload) {
     clearInterval(progressTimer);
     resetSteps();
-    downloadState.hidden = false;
-    statePlatform.textContent = `${detectPlatform(payload.url)} download`;
-    stateTitle.textContent = payload.format === 'mp3'
-      ? `Preparing MP3 • ${audioQualityLabel(payload.audioQuality)}`
-      : `Preparing MP4 • ${qualityLabel(payload.quality)}`;
-    stateMessage.textContent = 'Please keep this tab open. The browser download will start automatically after preparation.';
-    progressFill.style.width = '10%';
+
+    if (downloadState) downloadState.hidden = false;
+
+    if (statePlatform) statePlatform.textContent = `${detectPlatform(payload.url)} download`;
+
+    if (stateTitle) {
+      stateTitle.textContent =
+        payload.format === 'mp3'
+          ? `Preparing MP3 • ${audioQualityLabel(payload.audioQuality)}`
+          : `Preparing MP4 • ${qualityLabel(payload.quality)}`;
+    }
+
+    if (stateMessage) {
+      stateMessage.textContent =
+        'Please keep this tab open. The browser download will start automatically after preparation.';
+    }
+
+    if (progressFill) progressFill.style.width = '10%';
 
     let progress = 10;
+
     progressTimer = setInterval(() => {
       progress = Math.min(progress + Math.random() * 8 + 3, 90);
-      progressFill.style.width = `${progress}%`;
+
+      if (progressFill) progressFill.style.width = `${progress}%`;
       if (progress > 35) activateStep(1);
       if (progress > 72) activateStep(2);
     }, 620);
 
-    downloadState.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    downloadState?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   function buildDownloadUrl(downloadUrl) {
     if (!downloadUrl) return '';
     if (/^https?:\/\//i.test(downloadUrl)) return downloadUrl;
-    return `${apiBaseUrl}${downloadUrl.startsWith('/') ? '' : '/'}${downloadUrl}`;
+
+    return `${activeApiBaseUrl}${downloadUrl.startsWith('/') ? '' : '/'}${downloadUrl}`;
   }
 
   function finishPreparingState(downloadUrl, filename) {
     clearInterval(progressTimer);
+
     activateStep(2);
-    progressFill.style.width = '100%';
-    stateTitle.textContent = 'Download is ready';
+
+    if (progressFill) progressFill.style.width = '100%';
+    if (stateTitle) stateTitle.textContent = 'Download is ready';
 
     const finalUrl = buildDownloadUrl(downloadUrl);
     const safeName = filename || (getFormat() === 'mp3' ? 'audio.mp3' : 'video.mp4');
-    stateMessage.innerHTML = '';
-    const messageText = document.createTextNode('Your browser download has started. Check the Downloads section in Chrome or your browser. ');
-    const manualLink = document.createElement('a');
-    manualLink.href = finalUrl;
-    manualLink.download = safeName;
-    manualLink.textContent = 'Click here if it does not start.';
-    manualLink.rel = 'noopener';
-    stateMessage.appendChild(messageText);
-    stateMessage.appendChild(manualLink);
+
+    if (stateMessage) {
+      stateMessage.innerHTML = '';
+
+      const messageText = document.createTextNode(
+        'Your browser download has started. Check the Downloads section in Chrome or your browser. '
+      );
+
+      const manualLink = document.createElement('a');
+      manualLink.href = finalUrl;
+      manualLink.download = safeName;
+      manualLink.textContent = 'Click here if it does not start.';
+      manualLink.rel = 'noopener';
+
+      stateMessage.appendChild(messageText);
+      stateMessage.appendChild(manualLink);
+    }
 
     const link = document.createElement('a');
     link.href = finalUrl;
     link.download = safeName;
     link.rel = 'noopener';
     link.style.display = 'none';
+
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -511,11 +702,13 @@ const audioQualities = [
 
   function showDownloadError(message) {
     clearInterval(progressTimer);
-    downloadState.hidden = false;
-    progressFill.style.width = '0%';
-    statePlatform.textContent = 'Download failed';
-    stateTitle.textContent = 'Could not prepare this file';
-    stateMessage.textContent = message;
+
+    if (downloadState) downloadState.hidden = false;
+    if (progressFill) progressFill.style.width = '0%';
+    if (statePlatform) statePlatform.textContent = 'Download failed';
+    if (stateTitle) stateTitle.textContent = 'Could not prepare this file';
+    if (stateMessage) stateMessage.textContent = message;
+
     prepareSteps.forEach((step) => {
       step.classList.remove('active', 'done');
     });
@@ -523,14 +716,14 @@ const audioQualities = [
 
   async function prepareDownload() {
     const payload = {
-      url: urlInput.value.trim(),
+      url: urlInput?.value.trim(),
       format: getFormat(),
       quality: selectedQuality,
       audioQuality: selectedAudioQuality,
     };
 
     if (!payload.url) {
-      urlInput.focus();
+      urlInput?.focus();
       setStatus('Please paste a video URL first.', 'error');
       return;
     }
@@ -544,10 +737,12 @@ const audioQualities = [
     updateSummary();
     startPreparingState(payload);
     setControlsDisabled(true);
-    downloadNowBtn.querySelector('span:last-child').textContent = 'Preparing...';
+
+    const downloadLabel = downloadNowBtn?.querySelector('span:last-child');
+    if (downloadLabel) downloadLabel.textContent = 'Preparing...';
 
     try {
-      const response = await fetch(`${apiBaseUrl}/api/download`, {
+      const response = await apiFetch('/api/download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -559,43 +754,62 @@ const audioQualities = [
       }
 
       const data = await response.json();
+
       if (!data.downloadUrl) {
         throw new Error('Backend prepared the file but did not return a download URL.');
       }
 
       finishPreparingState(data.downloadUrl, data.filename);
     } catch (error) {
-      showDownloadError(getFriendlyNetworkError(error, 'Download failed. Check backend terminal for details.'));
+      showDownloadError(
+        getFriendlyNetworkError(error, 'Download failed. Check backend terminal for details.')
+      );
     } finally {
       setControlsDisabled(false);
-      downloadNowBtn.querySelector('span:last-child').textContent = 'Download Now';
+
+      if (downloadLabel) downloadLabel.textContent = 'Download Now';
     }
   }
 
   urlInput?.addEventListener('input', () => {
     analyzedVideo = null;
-    videoPreview.hidden = true;
+
+    if (videoPreview) videoPreview.hidden = true;
+
     resetQualitySizes();
     setStatus(detectPlatform(urlInput.value), 'idle');
   });
 
-  formatRadios.forEach((radio) => radio.addEventListener('change', () => {
-    invalidateAnalysis('Format changed. Analyze again to refresh file size.');
-    updateSummary();
-    const isMp3 = getFormat() === 'mp3';
-    setStatus(isMp3 ? 'MP3 selected. Choose bitrate, then analyze to show audio size.' : 'MP4 selected. Choose resolution, then analyze to show video size.', 'success');
-  }));
+  formatRadios.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      invalidateAnalysis('Format changed. Analyze again to refresh file size.');
+      updateSummary();
+
+      const isMp3 = getFormat() === 'mp3';
+
+      setStatus(
+        isMp3
+          ? 'MP3 selected. Choose bitrate, then analyze to show audio size.'
+          : 'MP4 selected. Choose resolution, then analyze to show video size.',
+        'success'
+      );
+    });
+  });
 
   qualityButtons.forEach((button) => {
     button.addEventListener('click', () => {
       selectedQuality = button.dataset.quality || '720';
+
       qualityButtons.forEach((item) => {
         const isActive = item === button;
+
         item.classList.toggle('active', isActive);
         item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
         const badge = item.querySelector('b');
         if (badge) badge.textContent = isActive ? 'Selected' : 'Select';
       });
+
       invalidateAnalysis('Resolution changed. Analyze the video again to refresh file size.');
       updateSummary();
       setStatus(`Selected ${qualityLabel(selectedQuality)}. Analyze the video to show the size.`, 'success');
@@ -605,13 +819,17 @@ const audioQualities = [
   audioQualityButtons.forEach((button) => {
     button.addEventListener('click', () => {
       selectedAudioQuality = button.dataset.audioQuality || '320';
+
       audioQualityButtons.forEach((item) => {
         const isActive = item === button;
+
         item.classList.toggle('active', isActive);
         item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
         const badge = item.querySelector('b');
         if (badge) badge.textContent = isActive ? 'Selected' : 'Select';
       });
+
       invalidateAnalysis('MP3 bitrate changed. Analyze again to refresh audio size.');
       updateSummary();
       setStatus(`Selected MP3 ${audioQualityLabel(selectedAudioQuality)}. Analyze to show the size.`, 'success');

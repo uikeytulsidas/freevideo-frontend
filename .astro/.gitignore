@@ -29,6 +29,6 @@ Thumbs.db
 
 # environment files
 # Keep .env.example in git. Do not commit real secrets.
-.env.local
+.env
 .env.production
 *.local
