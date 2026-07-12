@@ -1,5 +1,6 @@
 export const site = {
   name: 'FreeVideo.in',
+   url: 'https://freevideo.in',
   tagline: 'FreeVideo.in is a fast, free and private multi-platform video downloader.',
   description:
     'FreeVideo.in lets you save public videos from YouTube, Instagram, Facebook, X, Dailymotion and Reddit — MP4 up to 8K when the source video provides it.',

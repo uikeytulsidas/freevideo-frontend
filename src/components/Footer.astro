@@ -1,14 +1,26 @@
+
+
+
 ---
 import { platforms, site } from '../data/site.js';
 ---
+
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <a class="brand footer-brand" href="/">
-        <span class="brand-mark">⬇</span>
+      <a class="brand footer-brand" href="/" aria-label="FreeVideo.in home">
+        <img
+          src="/assets/freevideo-logo.png"
+          alt="FreeVideo.in logo"
+          class="footer-logo"
+          width="42"
+          height="42"
+        />
         <span>{site.name}</span>
       </a>
+
       <p>{site.description}</p>
+
       <div class="footer-badges">
         <span>No login needed</span>
         <span>No tracking</span>
@@ -17,7 +29,9 @@ import { platforms, site } from '../data/site.js';
 
     <div>
       <h3>Platforms</h3>
-      {platforms.map((platform) => <a href={platform.slug}>{platform.name}</a>)}
+      {platforms.map((platform) => (
+        <a href={platform.slug}>{platform.name}</a>
+      ))}
       <a href="/">All supported sites</a>
     </div>
 
@@ -33,10 +47,16 @@ import { platforms, site } from '../data/site.js';
     <div>
       <h3>Get started</h3>
       <p>Paste any public video URL and download in seconds.</p>
-      <p class="footer-email">Email: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+
+      <p class="footer-email">
+        Email:
+        <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+      </p>
+
       <a class="btn" href="/#downloader">Start downloading</a>
     </div>
   </div>
+
   <div class="container footer-bottom">
     <p>© 2026 FreeVideo.in. All rights reserved.</p>
     <p>freevideo.in</p>
